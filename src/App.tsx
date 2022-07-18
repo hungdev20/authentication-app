@@ -2,9 +2,9 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./features/auth/loginPage";
-import Home from "./components/Home";
+import Home from "./pages/Home";
 import "./App.css";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./pages/PrivateRoute";
 function App() {
   return (
     <div className="App">
