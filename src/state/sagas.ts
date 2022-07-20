@@ -5,23 +5,21 @@ import getAuth from "../getAuth";
 function* handleLogin(payload: User, navigate: any) {
   try {
     const session_url = `http://httpbin.org/basic-auth/${payload.username}/${payload.password}`;
-    const status: number = yield call(
-      getAuth,
-      payload.username,
-      payload.password,
-      session_url
-    );
+    const status: number = yield call(getAuth, session_url);
     if (status == 200) {
       localStorage.setItem("isLogin", "fake_login");
       const user = {
         id: 1,
-        username: payload.username
-      }
+        username: payload.username,
+      };
       yield put({ type: LOGIN_SUCCESS, payload: user });
       navigate("/");
     }
   } catch (error) {
-    yield put({ type: LOGIN_FAILED, error });
+    yield put({
+      type: LOGIN_FAILED,
+      error,
+    });
   }
 }
 

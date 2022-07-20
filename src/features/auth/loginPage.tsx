@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
 import { login } from "../../state/actions";
+import { user } from "../../getAuth";
 import { useNavigate } from "react-router-dom";
 import secure_login from "../../images/secure_login.svg";
 export default function LoginPage() {
@@ -14,6 +15,7 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [passwordError, setpasswordError] = useState("");
   const [usernameError, setusernameError] = useState("");
+  const [error, setError] = useState("");
   const handleValidation = () => {
     let formIsValid = true;
     if (!username.match(/^[A-Za-z][A-Za-z0-9_]{7,29}$/)) {
@@ -35,6 +37,15 @@ export default function LoginPage() {
       return false;
     } else {
       setpasswordError("");
+      formIsValid = true;
+    }
+
+    if (username != user.username || password != user.password) {
+      formIsValid = false;
+      setError("Username or password is incorrect");
+      return false;
+    } else {
+      setError("");
       formIsValid = true;
     }
     return formIsValid;
@@ -78,7 +89,11 @@ export default function LoginPage() {
                 <small id="passworderror" className="text-danger form-text">
                   {passwordError}
                 </small>
+                <small id="error" className="text-danger form-text">
+                  {error}
+                </small>
               </Form.Group>
+
               <Button
                 className="btn_login"
                 variant="primary"

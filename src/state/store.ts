@@ -12,7 +12,7 @@ const persistConfig = {
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(
+export const store = createStore(
   persistedReducer,
   applyMiddleware(sagaMiddleware)
 );

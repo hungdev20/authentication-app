@@ -11,10 +11,6 @@ export interface AuthActions {
   payload?: string;
 }
 
-interface User {
-  id: number|string,
-  username: string;
-}
 const currentUser = {
   id: '',
   username: ''
