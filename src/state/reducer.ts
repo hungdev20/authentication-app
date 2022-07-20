@@ -3,7 +3,7 @@ import { LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT } from "./actions";
 export interface AuthState {
   authenticated: boolean;
   error: string | null;
-  currentUser?: object
+  currentUser?: object;
 }
 
 export interface AuthActions {
@@ -12,8 +12,8 @@ export interface AuthActions {
 }
 
 const currentUser = {
-  id: '',
-  username: ''
+  id: "",
+  username: "",
 };
 const initialState: AuthState = {
   authenticated: false,
@@ -27,7 +27,7 @@ const authReducer = (state = initialState, action: AuthActions) => {
       return {
         ...state,
         authenticated: true,
-        currentUser: action.payload
+        currentUser: action.payload,
       };
     case LOGIN_FAILED:
       return {
@@ -38,7 +38,7 @@ const authReducer = (state = initialState, action: AuthActions) => {
       return {
         ...state,
         authenticated: false,
-        currentUser: undefined
+        currentUser: undefined,
       };
     default:
       return state;

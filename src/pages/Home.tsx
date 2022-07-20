@@ -1,44 +1,53 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
 import { useNavigate, Link } from "react-router-dom";
-import logo from "../images/logo.svg";
 import { useDispatch } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import Form from "react-bootstrap/Form";
+import axios from "axios";
+
+import logo from "../images/logo.svg";
 import store from "../state/store";
 import { logout } from "../state/actions";
-import axios from "axios";
-export interface HomeProps {}
 
-export default function Home(props: HomeProps) {
+function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const faPropIcon = faMagnifyingGlass as IconProp;
   const username = store.getState().authReducer["currentUser"]["username"];
-  const [posts, setPosts] = useState([]);
+  const tabs = ["posts", "comments", "albums"];
+  const [datas, setDatas] = useState([]);
+  const [type, setType] = useState("posts");
+
   const handleLogout = () => {
     dispatch(logout(navigate));
   };
   useEffect(() => {
     axios
-      .get("https://jsonplaceholder.typicode.com/posts")
+      .get(`https://jsonplaceholder.typicode.com/${type}`)
       .then(function(response) {
-        setPosts(response.data);
+        setDatas(response.data);
       })
       .catch(function(error) {
         console.log(error);
       });
-  }, []);
+  }, [type]);
   return (
     <div>
       <header className="wp-header">
         <Container className="py-2">
           <Row>
-            <Col md={3}>
+            <Col md={4}>
               <div className="logo">
-                <img src={logo} alt="" />
+                <Link to="/">
+                  <img src={logo} alt="vnexpress" />
+                </Link>
               </div>
             </Col>
-            <Col md={3}>
+            <Col md={4}>
               <Form className="form-search">
                 <input
                   className="search"
@@ -46,17 +55,18 @@ export default function Home(props: HomeProps) {
                   placeholder="Search posts and videos"
                   spellCheck={false}
                 />
+                <button className="search-btn">
+                  <FontAwesomeIcon icon={faPropIcon} />
+                </button>
               </Form>
             </Col>
-            <Col md={6} className="header-right">
+            <Col md={4} className="header-right">
               <nav>
-                <Link to="/invoices">Invoices</Link>
-                <Link to="/expenses">Expenses</Link>
                 <Link to="/posts">Posts</Link>
               </nav>
               <div className="info-user">
                 <p>
-                  Hi, <span>{username ? username : ""}</span>
+                  <span>{username ? username : ""}</span>
                 </p>
                 <p className="logout" onClick={handleLogout}>
                   Logout
@@ -68,10 +78,30 @@ export default function Home(props: HomeProps) {
       </header>
       <div className="wp-body">
         <Container>
-          <h2 className="title">LIST POSTS</h2>
+          <ul className="tabs">
+            {tabs.map((tab) => (
+              <li key={tab}>
+                <button
+                  className="nav-link"
+                  style={
+                    type === tab
+                      ? {
+                          color: "#495057",
+                          backgroundColor: "#fff",
+                          borderColor: "#dee2e6 #dee2e6 #fff",
+                        }
+                      : {}
+                  }
+                  onClick={() => setType(tab)}
+                >
+                  {tab}
+                </button>
+              </li>
+            ))}
+          </ul>
           <ul>
-            {posts.map((post) => (
-              <li key={post["id"]}>{post["title"]}</li>
+            {datas.map((data) => (
+              <li key={data["id"]}>{data["title"] || data["name"]}</li>
             ))}
           </ul>
         </Container>
@@ -79,3 +109,5 @@ export default function Home(props: HomeProps) {
     </div>
   );
 }
+
+export default Home;

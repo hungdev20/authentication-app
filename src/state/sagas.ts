@@ -32,10 +32,10 @@ function* watchLoginFlow() {
   while (true) {
     const isLogin = Boolean(localStorage.getItem("isLogin"));
     if (!isLogin) {
-      const { type, payload, navigate } = yield take(LOGIN);
+      const { payload, navigate } = yield take(LOGIN);
       yield fork(handleLogin, payload, navigate);
     }
-    const { type, navigate } = yield take(LOGOUT);
+    const { navigate } = yield take(LOGOUT);
     yield call(handleLogout, navigate);
   }
 }

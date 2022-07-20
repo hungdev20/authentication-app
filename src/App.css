@@ -1,11 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-rendering: optimizespeed;
+  color: #333;
+}
+
 ul {
   padding: 0;
 }
 
+.container {
+  max-width: 1150px;
+}
+
 /* Home */
 .wp-header {
-  border-top: 1px solid #333;
-  border-bottom: 1px solid #333
+  box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
 }
 
 .logo {
@@ -17,8 +30,10 @@ ul {
 }
 
 .form-search {
+  height: 46px;
+  padding-left: 16px;
+  display: flex;
   align-items: center;
-  padding: 12px 16px;
   background: rgba(22, 24, 35, 0.06);
   border-radius: 92px;
   position: relative;
@@ -31,6 +46,7 @@ ul {
   font-family: ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
   font-weight: 400;
   font-size: 16px;
+  height: 100%;
   line-height: 22px;
   border: none;
   background: transparent;
@@ -46,18 +62,39 @@ ul {
   background: none !important;
 }
 
+input:not(:placeholder-shown)~.search-btn {
+  color: rgba(22, 24, 35, 0.75);
+}
+
+.form-search .search-btn {
+  border: none;
+  height: 100%;
+  width: 50px;
+  color: rgba(22, 24, 35, 0.34);
+  font-size: 1.4rem;
+}
+
+.form-search .search-btn:hover {
+  background: rgba(22, 24, 35, 0.03);
+}
+
 .header-right {
   display: flex;
   padding-top: 10px;
   font-weight: 500;
+  justify-content: end;
+  align-items: center;
 }
 
 .header-right a {
   text-decoration: none;
   display: inline-block;
-  color: #333;
+  color: #161823;
   margin-right: 10px;
+  font-style: normal;
+  font-weight: 500;
   font-size: 18px;
+  line-height: 24px;
 }
 
 .header-right a:hover {
@@ -88,6 +125,30 @@ ul {
 
 .wp-body {
   margin-top: 20px;
+}
+
+.tabs {
+  margin: 20px 0;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  list-style: none;
+}
+
+.nav-link {
+  margin-bottom: -1px;
+  background: 0 0;
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.nav-link button{
+  border: none;
+  background: transparent
 }
 
 /* Login */

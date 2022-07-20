@@ -1,13 +1,15 @@
 import * as React from "react";
 import { useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { Col, Container, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { login } from "../../state/actions";
 import { user } from "../../getAuth";
-import { useNavigate } from "react-router-dom";
 import secure_login from "../../images/secure_login.svg";
+
 export default function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -16,6 +18,7 @@ export default function LoginPage() {
   const [passwordError, setpasswordError] = useState("");
   const [usernameError, setusernameError] = useState("");
   const [error, setError] = useState("");
+
   const handleValidation = () => {
     let formIsValid = true;
     if (!username.match(/^[A-Za-z][A-Za-z0-9_]{7,29}$/)) {
@@ -23,6 +26,7 @@ export default function LoginPage() {
       setusernameError(
         "Username must be from 8 to 30 characters, and starts with an anphalbet"
       );
+      setError("")
       return false;
     } else {
       setusernameError("");
@@ -34,18 +38,10 @@ export default function LoginPage() {
       setpasswordError(
         "Only Letters and length must best min 8 Chracters and Max 22 Chracters"
       );
+      setError("")
       return false;
     } else {
       setpasswordError("");
-      formIsValid = true;
-    }
-
-    if (username != user.username || password != user.password) {
-      formIsValid = false;
-      setError("Username or password is incorrect");
-      return false;
-    } else {
-      setError("");
       formIsValid = true;
     }
     return formIsValid;
@@ -54,11 +50,15 @@ export default function LoginPage() {
   const handleLogin = () => {
     const validate = handleValidation();
     if (validate) {
-      const userInfo = {
-        username,
-        password,
-      };
-      dispatch(login(userInfo, navigate));
+      if (username != user.username || password != user.password) {
+        setError("Username or password is incorrect");
+      } else {
+        const userInfo = {
+          username,
+          password,
+        };
+        dispatch(login(userInfo, navigate));
+      }
     }
   };
 
