@@ -9,9 +9,9 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 
-import logo from "../images/logo.svg";
-import store from "../state/store";
-import { logout } from "../state/actions";
+import logo from "../../assets/images/logo.svg";
+import store from "../../state/store";
+import { logout } from "../../state/actions";
 
 function Home() {
   const navigate = useNavigate();

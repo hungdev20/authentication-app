@@ -1,10 +1,10 @@
 import { call, fork, put, take } from "redux-saga/effects";
 import { LOGIN, LOGOUT, LOGIN_FAILED, LOGIN_SUCCESS, User } from "./actions";
-import getAuth from "../getAuth";
+import getAuth from "../apis/getAuth";
 
 function* handleLogin(payload: User, navigate: any) {
   try {
-    const session_url = `http://httpbin.org/basic-auth/${payload.username}/${payload.password}`;
+    const session_url = `/${payload.username}/${payload.password}`;
     const status: number = yield call(getAuth, session_url);
     if (status == 200) {
       localStorage.setItem("isLogin", "fake_login");

@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from "react-router-dom";
-import LoginPage from "./features/auth/loginPage";
+import LoginPage from "./pages/LoginPage";
 import Home from "./pages/Home";
 import "./App.css";
 import PrivateRoute from "./pages/PrivateRoute";
@@ -14,8 +14,7 @@ function App() {
           path="/"
           element={
             <PrivateRoute>
-              <Home />
-              
+              <Home /> 
             </PrivateRoute>
           }
         />

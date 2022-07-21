@@ -7,8 +7,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { login } from "../../state/actions";
-import { user } from "../../getAuth";
-import secure_login from "../../images/secure_login.svg";
+import { user } from "../../axiosConfig";
+import secure_login from "../../assets/images/secure_login.svg";
 
 export default function LoginPage() {
   const navigate = useNavigate();
