@@ -20,6 +20,7 @@ function Home() {
   const username = store.getState().authReducer["currentUser"]["username"];
   const tabs = ["posts", "comments", "albums"];
   const [datas, setDatas] = useState([]);
+  const [datasTest, setDatasTest] = useState([]);
   const [type, setType] = useState("posts");
 
   const handleLogout = () => {
